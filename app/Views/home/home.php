@@ -15,7 +15,7 @@
     <div style="display: block" id="s-1">
         <table>
             <tr>
-                <th colspan="2">1. 경기도 시민이신가요?</th>
+                <th colspan="2">1. 경기도 시민이신가요???</th>
             </tr>
             <tr>
                 <td><input type="radio" name="1" value="1" checked>예</td>
