@@ -1,5 +1,36 @@
-version: 0.0
-os: linux
-files:
-  - source:  /service/.github/workflows/
-    destination: /service/
+name: ci
+
+on:
+  push:
+    branches: [ master, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      -
+        name: Check out the repo
+        uses: actions/checkout@v2
+
+      -
+        name: executing remote ssh commands using key (prod)
+        if: github.ref == 'refs/heads/master'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: cd ${{ secrets.PATH_PROD }} && sudo git pull && sudo composer install && sudo npm install
+
+      -
+        name: executing remote ssh commands using key (dev)
+        if: github.ref == 'refs/heads/develop'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: cd ${{ secrets.PATH_DEV }} && sudo git pull && sudo composer install && sudo npm install
