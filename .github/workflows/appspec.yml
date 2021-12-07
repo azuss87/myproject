@@ -22,7 +22,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: cd ${{ secrets.PATH_PROD }} && sudo git pull && sudo composer install && sudo npm install
+          script: cd ${{ secrets.PATH_PROD }} && sudo git pull && sudo composer install
 
       -
         name: executing remote ssh commands using key (dev)
